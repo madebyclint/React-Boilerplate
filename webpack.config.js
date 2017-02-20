@@ -1,9 +1,10 @@
-var webpack = require('webpack');
+var webpack = require('webpack')
+var path = require('path')
 
 module.exports = {
     entry: [
-        'script!jquery/dist/jquery.min.js',
-        'script!foundation-sites/dist/js/foundation.min.js',
+        'script-loader!jquery/dist/jquery.min.js',
+        'script-loader!foundation-sites/dist/js/foundation.min.js',
         './app/app.jsx'
     ],
     externals: {
@@ -12,7 +13,7 @@ module.exports = {
     plugins: [
         new webpack.ProvidePlugin({
             '$': 'jquery',
-            'jQuery': 'jquery'    
+            'jQuery': 'jquery'
         })
     ],
     output: {
@@ -20,12 +21,14 @@ module.exports = {
         filename: './public/bundle.js'
     },
     resolve: {
-        root: __dirname,
         alias: {
-            Main: 'app/components/Main.jsx',
             applicationStyles: 'app/styles/app.scss'
         },
-        extensions: ['', '.js', '.jsx']
+        extensions: ['.js', '.jsx'],
+        modules: [
+            __dirname,
+            'node_modules'
+        ]
     },
     module: {
         loaders: [
@@ -34,12 +37,25 @@ module.exports = {
                 query: {
                     presets: ['react', 'es2015', 'stage-0']
                 },
-                tests: /\.jsx?$/,
-                exclude: /(node_modules|bower_components)/,
+                test: /\.jsx?$/,
+                exclude: /(node_modules|bower_components)/
             },
-            {test: /\.css$/, loader: "style!css!"},
-            {test: /\.scss$/, loader: "style!css!sass!"}
+            {
+                test: /\.css$/,
+                include: [
+                    path.join(__dirname, 'app', 'styles')
+                ],
+                loaders: ['style-loader', 'css-loader']
+            },
+            {
+                test: /\.scss$/,
+                include: [
+                    path.join(__dirname, 'app', 'styles')
+                ],
+                loaders: ['style-loader', 'css-loader', 'sass-loader']
+            }
         ]
     },
     devtool: 'cheap-module-eval-source-map'
-};
+}
+
