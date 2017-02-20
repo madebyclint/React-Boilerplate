@@ -1,0 +1,32 @@
+// https://github.com/feross/eslint-config-standard-jsx
+
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": ["standard", "standard-jsx"],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "sourceType": "module",
+        "ecmaVersion": 2017
+    },
+    "parser": "babel-eslint",
+    "rules": {
+        "no-const-assign": "warn",
+        "no-this-before-super": "warn",
+        "no-undef": "warn",
+        "no-unreachable": "warn",
+        "no-unused-vars": "warn",
+        "constructor-super": "warn",
+        "valid-typeof": "warn",
+        "jsx-quotes": ["warn", "prefer-double"],
+        "indent": ["warn", 4, { "SwitchCase": 1 }],
+        "react/jsx-indent": ["warn", 4],
+        "strict": 0
+    }
+}
